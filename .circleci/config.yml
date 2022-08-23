@@ -1,24 +1,9 @@
-version 2
- jobs:
-   build1: # job name
-     docker: # Specifies the primary container image
-       - image: buildpack-deps:trusty
-
-       - image: postgres:9.4.1 # Specifies the database image
-        # for the secondary or service container run in a common
-        # network where ports exposed on the primary container are
-        # available on localhost.
-         environment: # Specifies the POSTGRES_USER auth environment variable
-           POSTGRES_USER: root
-...
-   build2:
-     machine: # Specifies a machine image that uses
-     # an Ubuntu version 14.04 image with Docker 17.06.1-ce
-     # and docker-compose 1.14.0, follow CircleCI Discuss Announcements
-     # for new image releases.
-       image: circleci/classic:201708-01
-...       
-   build3:
-     macos: # Specifies a macOS virtual machine with Xcode version 9.0
-       xcode: "9.0"       
-...          
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2022.06
+    steps:
+      # ... steps for building/testing app ...
+      - setup_remote_docker:
+          version: 20.10.14
+      
